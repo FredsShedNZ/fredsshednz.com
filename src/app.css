@@ -1,0 +1,55 @@
+/* src/app.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap');
+
+/* Base styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-background text-primary font-sans;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply font-display font-bold;
+}
+
+h1 {
+  @apply text-4xl md:text-5xl;
+}
+
+h2 {
+  @apply text-3xl md:text-4xl;
+}
+
+/* Custom components */
+@layer components {
+  .section-container {
+    @apply max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8;
+  }
+  
+  .section-title {
+    @apply text-3xl font-bold text-primary mb-8 pb-2 border-b-2 border-secondary inline-block;
+  }
+  
+  .tile-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 gap-6;
+  }
+  
+  .service-tile {
+    @apply bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:transform hover:scale-105 flex flex-col items-center;
+  }
+  
+  .service-logo {
+    @apply w-24 h-24 object-contain mx-auto my-6;
+  }
+  
+  .service-name {
+    @apply text-xl font-semibold text-center px-4 pb-6;
+  }
+}

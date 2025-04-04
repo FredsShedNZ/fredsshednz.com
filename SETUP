@@ -1,0 +1,7 @@
+# What I did to get started:
+
+npm install -g sv@0.8.0 # current latest
+sv create . # plus answering various questions, added tailwindcss and used minimal, said do it with npm
+npm install # no-op because sv create did it
+
+
