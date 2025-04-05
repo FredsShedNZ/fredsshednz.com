@@ -4,4 +4,4 @@ npm install -g sv@0.8.0 # current latest
 sv create . # plus answering various questions, added tailwindcss and used minimal, said do it with npm
 npm install # no-op because sv create did it
 
-
+Then iterated and what you see in the second commit is everything that needed changing from base to good enough to get started. 
