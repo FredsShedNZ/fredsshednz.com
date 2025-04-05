@@ -1,40 +1,45 @@
-<!-- src/lib/components/ServiceTile.svelte -->
+<!-- In ServiceTile.svelte -->
 <script>
   export let name = '';
   export let url = '';
   export let logoSrc = '';
+  export let type = '';
   export let description = '';
   export let backgroundColor = 'bg-white';
-  export let textColor = 'text-primary';
+  
+  export let logoSize = 'medium';
+  export let preserveAspectRatio = true;
+  
+  // For debugging
+  console.log('Received type:', type);
 </script>
 
 <a 
   href={url} 
   target="_blank" 
   rel="noopener noreferrer" 
-  class="service-tile {backgroundColor} {textColor}"
+  class="block {backgroundColor} rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105 text-center p-6"
 >
-  <div class="p-6 flex flex-col items-center h-full">
-    <img src={logoSrc} alt="{name} logo" class="service-logo mb-4" />
-    <h3 class="text-xl font-bold mb-2">{name}</h3>
-    {#if description}
-      <p class="text-center text-sm opacity-80">{description}</p>
+  <div class="flex flex-col items-center justify-between h-full">
+    <div class="logo-container {logoSize === 'small' ? 'h-24' : logoSize === 'large' ? 'h-40' : 'h-32'}">
+      <img 
+        src={logoSrc} 
+        alt="{name} logo" 
+        class="max-h-full {preserveAspectRatio ? 'max-w-full' : 'w-full'} object-contain"
+      />
+    </div>
+    
+    <!-- Let's try simplifying the conditional logic -->
+    {#if type === 'follow'}
+      <p class="text-sm text-gray-600 mt-4">Follow on {name}</p>
+    {:else if type === 'support'}
+      <p class="text-sm text-gray-600 mt-4">Support on {name}</p>
+    {:else if type === 'connect'}
+      <p class="text-sm text-gray-600 mt-4">Connect on {name}</p>
+    {:else if description != null}
+      <p class="text-sm text-gray-600 mt-4">{description}</p>
+    {:else}
+      <p class="text-sm text-gray-600 mt-4">We're on {name} (type: {type})</p>
     {/if}
   </div>
 </a>
-
-<style>
-  .service-tile {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .service-tile:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  }
-  
-  .service-logo {
-    max-width: 80px;
-    max-height: 80px;
-  }
-</style>

@@ -1,5 +1,7 @@
 <!-- src/lib/components/Header.svelte -->
 <script>
+  import { fade } from 'svelte/transition';
+
   let sections = [
     { id: 'watch', label: 'Watch' },
     { id: 'follow', label: 'Follow' },
@@ -18,84 +20,181 @@
   }
 </script>
 
-<header class="bg-primary text-white shadow-lg sticky top-0 z-50">
+<style>
+  .header-container {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background-color: #2C3E50;
+    padding: 1rem 0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+  
+  .header-content {
+    background: white;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo-section {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo-image {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 0.25rem;
+    object-fit: cover;
+    margin-right: 1rem;
+  }
+  
+  .logo-text {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #2C3E50;
+  }
+  
+  .nav-desktop {
+    display: none;
+  }
+  
+  .nav-link {
+    color: #2C3E50;
+    font-weight: 600;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.25rem;
+    transition: all 0.2s ease;
+  }
+  
+  .nav-link:hover {
+    background-color: #f0f9ff;
+    color: #E67E22;
+  }
+  
+  .mobile-menu-button {
+    display: flex;
+    color: #2C3E50;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+  }
+  
+  .mobile-menu {
+    background: white;
+    border-radius: 0 0 0.5rem 0.5rem;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+  
+  .mobile-menu-link {
+    display: block;
+    padding: 0.75rem 1rem;
+    color: #2C3E50;
+    font-weight: 600;
+    border-radius: 0.25rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  .mobile-menu-link:hover {
+    background-color: #f0f9ff;
+    color: #E67E22;
+  }
+  
+  .tagline {
+    display: none;
+    color: #6B7280;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+  }
+  
+  @media (min-width: 640px) {
+    .logo-image {
+      width: 4rem;
+      height: 4rem;
+    }
+    
+    .logo-text {
+      font-size: 1.75rem;
+    }
+    
+    .tagline {
+      display: block;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .nav-desktop {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .mobile-menu-button {
+      display: none;
+    }
+  }
+</style>
+
+<div class="header-container">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between h-16">
-      <div class="flex items-center">
-        <div class="text-2xl md:text-3xl font-display font-bold">
-          <a href="/" class="flex items-center">
-            <svg class="w-8 h-8 mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 3L4 9V21H20V9L12 3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M9 21V12H15V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            Fred's Shed NZ
-          </a>
+    <div class="header-content">
+      <!-- Logo and title section -->
+      <div class="logo-section">
+        <img src="/images/FredsShedNZ.png" alt="Fred's Shed NZ Logo" class="logo-image" />
+        <div>
+          <div class="logo-text">Fred's Shed NZ</div>
+          <div class="tagline">Fabrication, woodworking, cars, tools, boats, off grid, and adventure</div>
         </div>
       </div>
       
-      <!-- Mobile menu button -->
-      <div class="flex items-center sm:hidden">
-        <button 
-          type="button" 
-          class="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-white hover:bg-primary-light focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" 
-          aria-controls="mobile-menu" 
-          aria-expanded="false"
-          on:click={toggleMenu}
-        >
-          <span class="sr-only">Open main menu</span>
-          <!-- Icon when menu is closed -->
-          <svg 
-            class={!isMenuOpen ? 'block h-6 w-6' : 'hidden h-6 w-6'} 
-            xmlns="http://www.w3.org/2000/svg" 
-            fill="none" 
-            viewBox="0 0 24 24" 
-            stroke="currentColor" 
-            aria-hidden="true"
-          >
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-          <!-- Icon when menu is open -->
-          <svg 
-            class={isMenuOpen ? 'block h-6 w-6' : 'hidden h-6 w-6'} 
-            xmlns="http://www.w3.org/2000/svg" 
-            fill="none" 
-            viewBox="0 0 24 24" 
-            stroke="currentColor" 
-            aria-hidden="true"
-          >
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
-      
-      <!-- Desktop menu -->
-      <nav class="hidden sm:flex space-x-8 items-center">
+      <!-- Desktop navigation -->
+      <nav class="nav-desktop">
         {#each sections as section}
           <a 
             href="#{section.id}" 
-            class="text-white hover:text-secondary font-medium transition-colors duration-200"
+            class="nav-link"
           >
             {section.label}
           </a>
         {/each}
       </nav>
+      
+      <!-- Mobile menu button -->
+      <button 
+        class="mobile-menu-button"
+        aria-label="Open main menu"
+        on:click={toggleMenu}
+      >
+        {#if !isMenuOpen}
+          <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        {:else}
+          <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        {/if}
+      </button>
     </div>
-  </div>
-
-  <!-- Mobile menu, show/hide based on menu state -->
-  {#if isMenuOpen}
-    <div class="sm:hidden bg-primary-light" id="mobile-menu" transition:fade={{ duration: 200 }}>
-      <div class="px-2 pt-2 pb-3 space-y-1">
+    
+    <!-- Mobile menu -->
+    {#if isMenuOpen}
+      <div class="mobile-menu" transition:fade={{ duration: 200 }}>
         {#each sections as section}
           <a 
             href="#{section.id}" 
-            class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-primary-dark"
+            class="mobile-menu-link"
             on:click={closeMenu}
           >
             {section.label}
           </a>
         {/each}
       </div>
-    </div>
-  {/if}
-</header>
+    {/if}
+  </div>
+</div>

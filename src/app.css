@@ -1,10 +1,16 @@
-/* src/app.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* Import fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap');
+@import '@fontsource/inter/300.css'; 
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/700.css';
+@import '@fontsource/montserrat/500.css';
+@import '@fontsource/montserrat/600.css';
+@import '@fontsource/montserrat/700.css';
+@import '@fontsource/montserrat/800.css';
 
 /* Base styles */
 html {
@@ -12,44 +18,160 @@ html {
 }
 
 body {
-  @apply bg-background text-primary font-sans;
+  background-color: #ECF0F1;
+  color: #2C3E50;
+  font-family: 'Inter', Helvetica, Arial, sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  @apply font-display font-bold;
+  font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+  font-weight: bold;
 }
 
 h1 {
-  @apply text-4xl md:text-5xl;
+  font-size: 2.25rem; /* text-4xl */
+}
+@media (min-width: 768px) {
+  h1 {
+    font-size: 3rem; /* text-5xl */
+  }
 }
 
 h2 {
-  @apply text-3xl md:text-4xl;
+  font-size: 1.875rem; /* text-3xl */
+}
+@media (min-width: 768px) {
+  h2 {
+    font-size: 2.25rem; /* text-4xl */
+  }
 }
 
 /* Custom components */
-@layer components {
+.section-container {
+  max-width: 80rem; /* max-w-7xl */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem; /* px-4 */
+  padding-right: 1rem;
+  padding-top: 4rem; /* py-16 */
+  padding-bottom: 4rem;
+}
+@media (min-width: 640px) {
   .section-container {
-    @apply max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8;
+    padding-left: 1.5rem; /* px-6 */
+    padding-right: 1.5rem;
   }
-  
-  .section-title {
-    @apply text-3xl font-bold text-primary mb-8 pb-2 border-b-2 border-secondary inline-block;
+}
+@media (min-width: 1024px) {
+  .section-container {
+    padding-left: 2rem; /* px-8 */
+    padding-right: 2rem;
   }
-  
+}
+
+.section-title {
+  font-size: 1.875rem;
+  font-weight: bold;
+  color: #2C3E50;
+  margin-bottom: 2rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #E67E22;
+  display: inline-block;
+}
+
+.tile-grid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr)); /* grid-cols-1 */
+  gap: 1.5rem; /* gap-6 */
+}
+@media (min-width: 640px) {
   .tile-grid {
-    @apply grid grid-cols-1 sm:grid-cols-2 gap-6;
+    grid-template-columns: repeat(2, minmax(0, 1fr)); /* grid-cols-2 */
   }
-  
-  .service-tile {
-    @apply bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:transform hover:scale-105 flex flex-col items-center;
-  }
-  
-  .service-logo {
-    @apply w-24 h-24 object-contain mx-auto my-6;
-  }
-  
-  .service-name {
-    @apply text-xl font-semibold text-center px-4 pb-6;
-  }
+}
+
+.service-tile {
+  background-color: white;
+  border-radius: 0.5rem; /* rounded-lg */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+  overflow: hidden;
+  transition-property: transform;
+  transition-duration: 300ms;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.service-tile:hover {
+  transform: scale(1.05); /* hover:scale-105 */
+}
+
+.service-logo {
+  width: 6rem; /* w-24 */
+  height: 6rem; /* h-24 */
+  object-fit: contain;
+  margin: 1.5rem auto; /* my-6 mx-auto */
+}
+
+.service-name {
+  font-size: 1.25rem; /* text-xl */
+  font-weight: 600; /* font-semibold */
+  text-align: center;
+  padding-left: 1rem; /* px-4 */
+  padding-right: 1rem;
+  padding-bottom: 1.5rem; /* pb-6 */
+}
+
+/* Color utility classes */
+.bg-primary {
+  background-color: #2C3E50;
+}
+
+.bg-primary-light {
+  background-color: #34495E;
+}
+
+.bg-primary-dark {
+  background-color: #1A2530;
+}
+
+.bg-secondary {
+  background-color: #E67E22;
+}
+
+.bg-secondary-light {
+  background-color: #F39C12;
+}
+
+.bg-secondary-dark {
+  background-color: #D35400;
+}
+
+.bg-accent {
+  background-color: #27AE60;
+}
+
+.bg-background {
+  background-color: #ECF0F1;
+}
+
+.bg-background-dark {
+  background-color: #BDC3C7;
+}
+
+.text-primary {
+  color: #2C3E50;
+}
+
+.text-secondary {
+  color: #E67E22;
+}
+
+.border-secondary {
+  border-color: #E67E22;
+}
+
+/* Common utility classes */
+.text-white {
+  color: white;
 }

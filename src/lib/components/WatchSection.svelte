@@ -6,14 +6,14 @@
     {
       name: 'YouTube',
       url: 'https://youtube.com/@FredsShedNZ',
-      logoSrc: '/images/youtube-logo.png',
-      description: 'Watch full tutorials and project builds'
+      logoSrc: '/images/youtube.png',
+      description: 'Watch full both long and short videos'
     },
     {
       name: 'TikTok',
       url: 'https://www.tiktok.com/@fredsshed.nz',
-      logoSrc: '/images/tiktok-logo.png',
-      description: 'Quick tips and workshop highlights'
+      logoSrc: '/images/tiktok.png',
+      description: 'Watch only short form videos here'
     }
   ];
 </script>
@@ -40,7 +40,7 @@
     </div>
     
     <div class="mt-8 text-center text-lg">
-      <p>Subscribe to see the latest DIY projects, builds and shop updates!</p>
+      <p>Subscribe to see the latest project, tips and tricks, adventure, and shop update videos!</p>
     </div>
   </div>
 </section>

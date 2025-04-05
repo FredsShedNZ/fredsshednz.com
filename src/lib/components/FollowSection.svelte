@@ -6,26 +6,22 @@
     {
       name: 'Instagram',
       url: 'https://www.instagram.com/fredsshed.nz',
-      logoSrc: '/images/instagram-logo.png',
-      description: 'Project photos and workshop life'
+      logoSrc: '/images/instagram.png'
     },
     {
-      name: 'X (Twitter)',
+      name: 'Twitter (X)',
       url: 'https://x.com/FredsShedNZ',
-      logoSrc: '/images/x-logo.png',
-      description: 'Updates and wood/engineering news'
+      logoSrc: '/images/twitter.png'
     },
     {
       name: 'Facebook',
       url: 'https://www.facebook.com/FredsShedNZ',
-      logoSrc: '/images/facebook-logo.png',
-      description: 'Community and event announcements'
+      logoSrc: '/images/facebook.png'
     },
     {
       name: 'Telegram',
       url: 'https://t.me/FredsShedNZ',
-      logoSrc: '/images/telegram-logo.png',
-      description: 'Quick tips and exclusive content'
+      logoSrc: '/images/telegram.png'
     }
   ];
 </script>
@@ -48,13 +44,13 @@
           name={service.name} 
           url={service.url} 
           logoSrc={service.logoSrc} 
-          description={service.description}
+          type="follow"
         />
       {/each}
     </div>
     
     <div class="mt-8 text-center text-lg">
-      <p>Follow for daily updates and to join our growing community of makers!</p>
+      <p>Follow for video link releases and other updates and media! Join the growing fanbase!</p>
     </div>
   </div>
 </section>

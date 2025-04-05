@@ -1,37 +1,151 @@
 <!-- src/lib/components/ContactSection.svelte -->
 <script>
-  import ServiceTile from './ServiceTile.svelte';
+  import { onMount } from 'svelte';
   
   const emailContact = {
     name: 'Email',
     url: 'mailto:fredsshednz@proton.me',
-    logoSrc: '/images/email-logo.png',
+    logoSrc: '/images/email.png',
     description: 'fredsshednz@proton.me'
   };
   
   const dmContacts = [
     {
-      name: 'Instagram DM',
+      name: 'Instagram',
       url: 'https://www.instagram.com/fredsshed.nz',
-      logoSrc: '/images/instagram-mini-logo.png'
+      logoSrc: '/images/instagram.png'
     },
     {
-      name: 'Facebook DM',
+      name: 'Facebook',
       url: 'https://www.facebook.com/FredsShedNZ',
-      logoSrc: '/images/facebook-mini-logo.png'
+      logoSrc: '/images/facebook.png'
     },
     {
-      name: 'X (Twitter) DM',
+      name: 'X (Twitter)',
       url: 'https://x.com/FredsShedNZ',
-      logoSrc: '/images/x-mini-logo.png'
+      logoSrc: '/images/twitter.png'
     },
     {
-      name: 'Patreon DM',
+      name: 'Patreon',
       url: 'https://www.patreon.com/FredsShed',
-      logoSrc: '/images/patreon-mini-logo.png'
+      logoSrc: '/images/patreon.png'
     }
   ];
+  
+  let emailContainer;
+  let socialContainer;
+  
+  // Function to match heights
+  function matchHeights() {
+    if (emailContainer && socialContainer) {
+      // Reset heights first
+      emailContainer.style.height = 'auto';
+      socialContainer.style.height = 'auto';
+      
+      // Get the natural heights
+      const emailHeight = emailContainer.offsetHeight;
+      const socialHeight = socialContainer.offsetHeight;
+      
+      // Set both to the larger of the two heights
+      const maxHeight = Math.max(emailHeight, socialHeight);
+      emailContainer.style.height = `${maxHeight}px`;
+      socialContainer.style.height = `${maxHeight}px`;
+    }
+  }
+  
+  onMount(() => {
+    // Match heights after component is mounted
+    setTimeout(matchHeights, 100);
+  });
 </script>
+
+<style>
+  .contact-row {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+  
+  .contact-col {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .container {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+  
+  .email-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .email-container img {
+    max-width: 70%;
+    height: auto;
+    object-fit: contain;
+  }
+  
+  .mini-tiles {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 1rem;
+    height: 100%;
+  }
+  
+  .mini-tile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+    padding: 0.5rem;
+  }
+  
+  .mini-tile:hover {
+    transform: scale(1.05);
+  }
+  
+  .mini-tile img {
+    width: 85%;
+    object-fit: contain;
+  }
+  
+  .description-text {
+    text-align: center;
+    font-size: 1rem;
+    color: #2C3E50;
+    margin-top: 1.5rem;
+  }
+  
+  /* Media query for tablet and larger screens */
+  @media (min-width: 768px) {
+    .contact-row {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+    
+    .contact-col {
+      width: 48%; /* Reduced from 50% to prevent overlap */
+    }
+    
+    .contact-row {
+      justify-content: space-between; /* Add space between columns */
+    }
+  }
+</style>
 
 <section id="contact" class="py-16 bg-background">
   <div class="section-container">
@@ -43,36 +157,43 @@
       Contact
     </h2>
     
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <!-- Email tile (takes up 2/3 width on md screens) -->
-      <div class="md:col-span-2">
-        <ServiceTile 
-          name={emailContact.name} 
-          url={emailContact.url} 
-          logoSrc={emailContact.logoSrc} 
-          description={emailContact.description}
-        />
+    <div class="contact-row">
+      <!-- Email tile with description below -->
+      <div class="contact-col">
+        <a href={emailContact.url} class="container email-container" bind:this={emailContainer}>
+          <img src={emailContact.logoSrc} alt="Email logo" />
+        </a>
+        <a href={emailContact.url} class="description-text">
+          Email me at {emailContact.description}
+        </a>
       </div>
       
-      <!-- DM mini tiles container (takes up 1/3 width on md screens) -->
-      <div class="grid grid-cols-2 grid-rows-2 gap-4">
-        {#each dmContacts as contact}
-          <a 
-            href={contact.url} 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            class="bg-white rounded-lg shadow-md p-4 flex flex-col items-center justify-center transition-transform duration-200 hover:transform hover:scale-105"
-          >
-            <img src={contact.logoSrc} alt="{contact.name} logo" class="w-10 h-10 mb-2" />
-            <span class="text-xs text-center font-medium">{contact.name}</span>
-          </a>
-        {/each}
+      <!-- Mini-tiles container with description below -->
+      <div class="contact-col">
+        <div class="container" bind:this={socialContainer}>
+          <div class="mini-tiles">
+            {#each dmContacts as contact}
+              <a 
+                href={contact.url} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="mini-tile"
+                aria-label={`Message on ${contact.name}`}
+              >
+                <img src={contact.logoSrc} alt={`${contact.name} logo`} />
+              </a>
+            {/each}
+          </div>
+        </div>
+        <p class="description-text">DM me on any social platform</p>
       </div>
     </div>
     
     <div class="mt-8 text-center text-lg">
-      <p>Questions about a project? Collaboration ideas? Just want to say hello?</p>
-      <p class="text-secondary font-medium mt-2">I'd love to hear from you!</p>
+      <p>Feedback you'd rather give privately? Questions about a project? Collaboration ideas? Just want to say Hi?</p>
+      <p>I'd love to hear from you! Take your pick of methods above :-)</p>
     </div>
   </div>
 </section>
+
+<svelte:window on:resize={matchHeights}/>
