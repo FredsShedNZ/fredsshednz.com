@@ -1,20 +1,21 @@
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+# Fred's Shed NZ Website
 
-```bash
-npm run dev
+If you want to help make it better, I'm happy to entertain PRs that claim to improve it.
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+# Dev Process
 
-## Building
+Files are in `src/lib/components` and `src/routes` with images in `static/images`.
 
-To create a production version of your app:
+Scripts in the base dir `*.sh` operate as you'd expect.
 
-```bash
-npm run build
-```
+Just run `npm install` before you begin.
 
-You can preview the production build with `npm run preview`.
+# Svelte with Static adaptor
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+Svelte may be overengineering for a static site, but I like the modular approach and I may expand it later with eg a projects page or blog aspect or something along those lines.
+
+# Feedback Welcome
+
+Any and all feedback on the source, docs, site itself etc, totally welcome. Use the contact section or open an issue right here on the repo.
+
+Thanks for your interest. Much love, Fred of Fred's Shed NZ.
