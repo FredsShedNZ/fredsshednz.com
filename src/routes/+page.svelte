@@ -9,8 +9,8 @@
 </script>
 
 <svelte:head>
-  <title>Fred's Shed NZ - DIY Projects, Builds & More</title>
-  <meta name="description" content="Join Fred's Shed NZ for woodworking, engineering, fabrication, and DIY projects. Watch tutorials, follow on social media, and join our maker community.">
+  <title>Fred's Shed NZ - Workshop antics, cars, tools, and adventure!</title>
+  <meta name="description" content="Fabrication, woodworking, cars, tools, boats, off grid, and adventure. In the shed or exploring NZ!">
 </svelte:head>
 
 <Header />
