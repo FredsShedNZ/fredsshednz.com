@@ -1,6 +1,8 @@
 # Fred's Shed NZ Website
 
-If you want to help make it better, I'm happy to entertain PRs that claim to improve it.
+If you want to help make [the site](https://fredsshednz.com) better, I'm happy to entertain PRs that claim to improve it.
+
+
 
 # Dev Process
 
