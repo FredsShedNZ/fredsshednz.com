@@ -1,0 +1,44 @@
+name = "fredsshednz"
+
+preview_urls = false
+workers_dev = false
+compatibility_date = "2023-09-04"
+main = "index.js"
+
+[observability]
+enabled = false # ensable again as needed
+
+#[vars] All done as secrets since manually added configs get blown away by a deploy
+# B2_APPLICATION_KEY_ID = ""
+# B2_APPLICATION_KEY = ""
+# B2_ENDPOINT = ""
+# B2_BUCKET_NAME = ""
+# B2_BUCKET_PATH = (RELEASE VALUE as secret)
+
+# TODO may be useful, need to handle caching correctly to keep costs reasonable:
+
+# Note that, if "x-amz-content-sha256" is not included in ALLOWED_HEADERS, then
+# any value supplied in the incoming request is discarded and
+# "x-amz-content-sha256" will be set to "UNSIGNED-PAYLOAD".
+#
+# If you set ALLOWED_HEADERS, it is your responsibility to ensure that the
+# list of headers that you specify supports the functionality that your client
+# apps use, for example, "range". The list below is a suggested starting point.
+#
+# Note that HTTP headers are not case-sensitive. "host" will match "host",
+# "Host" and "HOST".
+#ALLOWED_HEADERS = [
+#    "content-type",
+#    "date",
+#    "host",
+#    "if-match",
+#    "if-modified-since",
+#    "if-none-match",
+#    "if-unmodified-since",
+#    "range",
+#    "x-amz-content-sha256",
+#    "x-amz-date",
+#    "x-amz-server-side-encryption-customer-algorithm",
+#    "x-amz-server-side-encryption-customer-key",
+#    "x-amz-server-side-encryption-customer-key-md5"
+#]
