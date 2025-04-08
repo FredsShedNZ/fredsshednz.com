@@ -1,7 +1,5 @@
 <!-- src/lib/components/ContactSection.svelte -->
 <script>
-  import { onMount } from 'svelte';
-  
   const emailContact = {
     name: 'Email',
     url: 'mailto:fredsshednz@proton.me',
@@ -31,32 +29,6 @@
       logoSrc: '/images/patreon.png'
     }
   ];
-  
-  let emailContainer;
-  let socialContainer;
-  
-  // Function to match heights
-  function matchHeights() {
-    if (emailContainer && socialContainer) {
-      // Reset heights first
-      emailContainer.style.height = 'auto';
-      socialContainer.style.height = 'auto';
-      
-      // Get the natural heights
-      const emailHeight = emailContainer.offsetHeight;
-      const socialHeight = socialContainer.offsetHeight;
-      
-      // Set both to the larger of the two heights
-      const maxHeight = Math.max(emailHeight, socialHeight);
-      emailContainer.style.height = `${maxHeight}px`;
-      socialContainer.style.height = `${maxHeight}px`;
-    }
-  }
-  
-  onMount(() => {
-    // Match heights after component is mounted
-    setTimeout(matchHeights, 100);
-  });
 </script>
 
 <style>
@@ -67,83 +39,91 @@
     margin-bottom: 4rem;
   }
   
+  @media (min-width: 768px) {
+    .contact-row {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+  
   .contact-col {
     width: 100%;
     display: flex;
     flex-direction: column;
   }
   
-  .container {
+  @media (min-width: 768px) {
+    .contact-col {
+      width: 47%;
+    }
+  }
+  
+  .content-box {
     background: white;
     border-radius: 0.5rem;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    padding: 1.5rem;
+    overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
-  .container:hover {
+  .content-box:hover {
     transform: translateY(-5px);
     box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   }
   
   .email-container {
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
   }
   
-  .email-container img {
-    max-width: 70%;
-    height: auto;
+  .email-image {
+    max-width: 85%;
+    max-height: 250px;
     object-fit: contain;
   }
   
-  .mini-tiles {
+  .social-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
     gap: 1rem;
+    width: 100%;
     height: 100%;
+    padding: 0.75rem;
   }
   
-  .mini-tile {
+  .social-item {
     display: flex;
     align-items: center;
     justify-content: center;
     transition: transform 0.2s;
-    padding: 0.5rem;
   }
   
-  .mini-tile:hover {
+  .social-item:hover {
     transform: scale(1.05);
   }
   
-  .mini-tile img {
-    width: 85%;
+  .social-image {
+    max-width: 85%;
+    max-height: 100px;
     object-fit: contain;
   }
   
-  .description-text {
+  .caption {
     text-align: center;
+    margin-top: 1.25rem;
+    display: block;
     font-size: 1rem;
     color: #2C3E50;
-    margin-top: 1.5rem;
-  }
-  
-  /* Media query for tablet and larger screens */
-  @media (min-width: 768px) {
-    .contact-row {
-      flex-direction: row;
-      align-items: flex-start;
-    }
-    
-    .contact-col {
-      width: 48%; /* Reduced from 50% to prevent overlap */
-    }
-    
-    .contact-row {
-      justify-content: space-between; /* Add space between columns */
-    }
+    height: 1.5rem;
+    line-height: 1.5rem;
   }
 </style>
 
@@ -158,42 +138,52 @@
     </h2>
     
     <div class="contact-row">
-      <!-- Email tile with description below -->
+      <!-- Email tile -->
       <div class="contact-col">
-        <a href={emailContact.url} class="container email-container" bind:this={emailContainer}>
-          <img src={emailContact.logoSrc} alt="Email logo" />
-        </a>
-        <a href={emailContact.url} class="description-text">
+        <div class="content-box">
+          <a href={emailContact.url} class="email-container">
+            <img 
+              src={emailContact.logoSrc} 
+              alt="Email logo"
+              class="email-image" 
+            />
+          </a>
+        </div>
+        <a href={emailContact.url} class="caption">
           Email me at {emailContact.description}
         </a>
       </div>
       
-      <!-- Mini-tiles container with description below -->
+      <!-- Social media tile -->
       <div class="contact-col">
-        <div class="container" bind:this={socialContainer}>
-          <div class="mini-tiles">
+        <div class="content-box">
+          <div class="social-grid">
             {#each dmContacts as contact}
               <a 
                 href={contact.url} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                class="mini-tile"
+                class="social-item"
                 aria-label={`Message on ${contact.name}`}
               >
-                <img src={contact.logoSrc} alt={`${contact.name} logo`} />
+                <img 
+                  src={contact.logoSrc} 
+                  alt={`${contact.name} logo`}
+                  class="social-image" 
+                />
               </a>
             {/each}
           </div>
         </div>
-        <p class="description-text">DM me on any social platform</p>
+        <div class="caption">
+          DM me on any social platform
+        </div>
       </div>
     </div>
     
     <div class="mt-8 text-center text-lg">
       <p>Feedback you'd rather give privately? Questions about a project? Collaboration ideas? Just want to say Hi?</p>
-      <p>I'd love to hear from you! Take your pick of methods above :-)</p>
+      <p class="text-secondary font-medium mt-2">I'd love to hear from you! Take your pick of methods above :)</p>
     </div>
   </div>
 </section>
-
-<svelte:window on:resize={matchHeights}/>
