@@ -4,12 +4,43 @@
 set -e
 
 # Validate up front...
+echo "Checking required environment variables..."
 
-# Backblaze key and bucket details in vars?
-# TODO B2_Bucket_Name
-# TODO B2_Profile
-# TODO B2_APPLICATION_KEY_ID
-# TODO B2_APPLICATION_KEY
+echo -n "B2_Bucket_Name? ... "
+if [ -n "${B2_Bucket_Name:-}" ]; then
+  echo "Okay."
+else
+  echo "Fail."
+  echo "Please ensure that 'B2_Bucket_Name' is set and contains the bucket name in B2."
+  exit 42
+fi
+
+echo -n "B2_Profile? ... "
+if [ -n "${B2_Profile:-}" ]; then
+  echo "Okay."
+else
+  echo "Fail."
+  echo "Please ensure that 'B2_Profile' is set to the value you want for this project."
+  exit 42
+fi
+
+echo -n "B2_APPLICATION_KEY_ID? ... "
+if [ -n "${B2_APPLICATION_KEY_ID:-}" ]; then
+  echo "Okay."
+else
+  echo "Fail."
+  echo "Please ensure that 'B2_APPLICATION_KEY_ID' is set and contains the application key ID from B2."
+  exit 42
+fi
+
+echo -n "B2_APPLICATION_KEY? ... "
+if [ -n "${B2_APPLICATION_KEY:-}" ]; then
+  echo "Okay."
+else
+  echo "Fail."
+  echo "Please ensure that 'B2_APPLICATION_KEY' is set and contains the application key as issued by B2 and shown to you once at creation time."
+  exit 42
+fi
 
 
 # CloudFlare login is done manually and cached by Wrangler:
