@@ -12,10 +12,8 @@ set -e
 # TODO B2_APPLICATION_KEY
 
 
-# CloudFlare keys in vars?
-# TODO CloudFlare_API_Token
-# TODO CloudFlare_
-# TODO B2_Bucket_Endpoint
+# CloudFlare login is done manually and cached by Wrangler:
+# npx wrangler login
 
 
 # Move to the dir the script lives in
