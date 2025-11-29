@@ -1,6 +1,6 @@
 {
   "devDependencies": {
     "aws4fetch": "^1.0.20",
-    "wrangler": "^4.8.0"
+    "wrangler": "^4.51.0"
   }
 }
