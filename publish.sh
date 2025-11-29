@@ -6,45 +6,55 @@ set -e
 # Validate up front...
 echo "Checking required environment variables..."
 
-echo -n "B2_Bucket_Name? ... "
-if [ -n "${B2_Bucket_Name:-}" ]; then
+echo -n "FREDSSHEDNZ_B2_Bucket_Name? ... "
+if [ -n "${FREDSSHEDNZ_B2_Bucket_Name:-}" ]; then
   echo "Okay."
 else
   echo "Fail."
-  echo "Please ensure that 'B2_Bucket_Name' is set and contains the bucket name in B2."
+  echo "Please ensure that 'FREDSSHEDNZ_B2_Bucket_Name' is set and contains the bucket name in B2."
   exit 42
 fi
 
-echo -n "B2_Profile? ... "
-if [ -n "${B2_Profile:-}" ]; then
+echo -n "FREDSSHEDNZ_B2_Profile? ... "
+if [ -n "${FREDSSHEDNZ_B2_Profile:-}" ]; then
   echo "Okay."
 else
   echo "Fail."
-  echo "Please ensure that 'B2_Profile' is set to the value you want for this project."
+  echo "Please ensure that 'FREDSSHEDNZ_B2_Profile' is set to the value you want for this project."
   exit 42
 fi
 
-echo -n "B2_APPLICATION_KEY_ID? ... "
-if [ -n "${B2_APPLICATION_KEY_ID:-}" ]; then
+echo -n "FREDSSHEDNZ_B2_APPLICATION_KEY_ID? ... "
+if [ -n "${FREDSSHEDNZ_B2_APPLICATION_KEY_ID:-}" ]; then
   echo "Okay."
 else
   echo "Fail."
-  echo "Please ensure that 'B2_APPLICATION_KEY_ID' is set and contains the application key ID from B2."
+  echo "Please ensure that 'FREDSSHEDNZ_B2_APPLICATION_KEY_ID' is set and contains the application key ID from B2."
   exit 42
 fi
 
-echo -n "B2_APPLICATION_KEY? ... "
-if [ -n "${B2_APPLICATION_KEY:-}" ]; then
+echo -n "FREDSSHEDNZ_B2_APPLICATION_KEY? ... "
+if [ -n "${FREDSSHEDNZ_B2_APPLICATION_KEY:-}" ]; then
   echo "Okay."
 else
   echo "Fail."
-  echo "Please ensure that 'B2_APPLICATION_KEY' is set and contains the application key as issued by B2 and shown to you once at creation time."
+  echo "Please ensure that 'FREDSSHEDNZ_B2_APPLICATION_KEY' is set and contains the application key as issued by B2 and shown to you once at creation time."
   exit 42
 fi
 
+echo -n "FREDSSHEDNZ_CloudFlare_API_Token? ... "
+if [ -n "${FREDSSHEDNZ_CloudFlare_API_Token:-}" ]; then
+  echo "Okay."
+else
+  echo "Fail."
+  echo "Please ensure that 'FREDSSHEDNZ_CloudFlare_API_Token' is set and contains the Cloudflare API token."
+  exit 42
+fi
 
-# CloudFlare login is done manually and cached by Wrangler:
-# npx wrangler login
+# Export tool-consumed variables with original names
+export B2_APPLICATION_KEY_ID="${FREDSSHEDNZ_B2_APPLICATION_KEY_ID}"
+export B2_APPLICATION_KEY="${FREDSSHEDNZ_B2_APPLICATION_KEY}"
+export CLOUDFLARE_API_TOKEN="${FREDSSHEDNZ_CloudFlare_API_Token}"
 
 
 # Move to the dir the script lives in
@@ -69,9 +79,9 @@ BucketPath="${BasePath}/$(git describe --always --dirty=-FAIL --long)-$(date +"%
 echo "Bucket path set to \"${BucketPath}\""
 
 # Upload to B2...
-PROFILE="--profile ${B2_Profile}"
+PROFILE="--profile ${FREDSSHEDNZ_B2_Profile}"
 echo "B2 command base set to \"b2 <> ${PROFILE}\""
-b2 sync ${PROFILE} ./build "b2://${B2_Bucket_Name}/${BucketPath}"
+b2 sync ${PROFILE} ./build "b2://${FREDSSHEDNZ_B2_Bucket_Name}/${BucketPath}"
 
 # Point cloudflare at new path...
 cd cloudflare-worker
