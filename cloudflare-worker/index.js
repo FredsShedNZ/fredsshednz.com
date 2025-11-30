@@ -69,14 +69,10 @@ export default {
         let allowRequest = false;
 
         if (path === '') {
-          // Root path → rewrite to index.html
-          path = 'index.html';
-          allowRequest = true;
-        } else if (path === 'index.html') {
-          allowRequest = true;
-        } else if (path.startsWith('_app/')) {
-          allowRequest = true;
-        } else if (path.startsWith('images/')) {
+          path = 'index.html'; // Root path → rewrite to index.html
+        }
+
+        if (path === 'index.html' || path.startsWith('_app/') || path.startsWith('images/')) {
           allowRequest = true;
         }
 
