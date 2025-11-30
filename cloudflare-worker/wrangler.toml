@@ -2,8 +2,14 @@ name = "fredsshednz"
 
 preview_urls = false
 workers_dev = false
-compatibility_date = "2023-09-04"
+compatibility_date = "2025-11-30"
 main = "index.js"
+
+routes = [
+  { pattern = "fredsshednz.com", custom_domain = true },
+  { pattern = "www.fredsshednz.com", custom_domain = true },
+  { pattern = "fredsshednz.com/*", zone_name = "fredsshednz.com" }
+]
 
 [observability]
 enabled = false # ensable again as needed
