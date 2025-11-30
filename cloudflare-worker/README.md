@@ -1,3 +1,9 @@
+# Login with
+
+```
+npx wrangler login --browser false
+```
+
 # Publish with:
 
 ```
